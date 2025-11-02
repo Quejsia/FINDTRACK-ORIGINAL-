@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FindTrack — Signup</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0284c7,#10b981);color:white;font-family:Inter,Arial}
+    .auth{width:320px;background:rgba(255,255,255,0.08);padding:20px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.18);text-align:center}
+    .auth h1{margin:0 0 12px 0}
+    input{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:0}
+    button{width:100%;padding:10px;border-radius:8px;border:0;background:white;color:#0284c7;font-weight:700;cursor:pointer}
+    a{color:white;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="auth">
+    <h1>FindTrack</h1>
+    <form id="signupForm">
+      <input id="signupName" type="text" placeholder="Full name" required />
+      <input id="signupEmail" type="email" placeholder="Email" required />
+      <input id="signupPass" type="password" placeholder="Password" required />
+      <button type="submit">Sign up</button>
+    </form>
+    <p style="margin-top:12px">Already have an account? <a href="login.html">Login</a></p>
+  </div>
+  <script src="register_script.js"></script>
+</body>
+</html>
