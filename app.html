@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ====== TOP BAR ====== -->
+  <!-- TOP BAR -->
   <header class="topbar">
     <div class="topbar-inner">
-      <button id="burgerBtn" class="burger-btn" aria-label="Menu">☰</button>
+      <button id="burgerBtn" class="burger-btn">☰</button>
       <div class="brand-wrap">
         <div class="logo">🔎</div>
         <div class="brand-text">
@@ -30,7 +30,7 @@
     </nav>
   </header>
 
-  <!-- ====== SIDEBAR ====== -->
+  <!-- SIDEBAR -->
   <div id="sidebarOverlay" class="overlay hidden"></div>
   <aside id="sidebarDrawer" class="sidebar-drawer hidden">
     <div class="drawer-header">
@@ -54,7 +54,7 @@
     </ul>
   </aside>
 
-  <!-- ====== MAIN PANELS ====== -->
+  <!-- MAIN -->
   <main>
     <!-- HOME -->
     <section id="home" class="panel active">
@@ -86,135 +86,219 @@
         <div class="recent-header"><h3>📋 Recent Reports</h3></div>
         <div id="recentList" class="recent-list"></div>
       </div>
-      <div class="tip-banner">💡 Tip: Report lost items within 24 hours!</div>
+      <div class="tip-banner">💡 Tip: Report lost items within 24 hours for better recovery!</div>
     </section>
 
     <!-- REPORT -->
     <section id="report" class="panel">
-      <h2>📦 Report Lost / Found Item</h2>
+      <h2 style="margin-bottom:20px">📦 Report Lost / Found Item</h2>
       <form id="reportForm" class="report-form">
-        <input id="r_title" placeholder="Item title" required>
-        <input id="r_location" placeholder="Location">
-        <textarea id="r_desc" rows="3" placeholder="Description"></textarea>
-        <input id="r_image" type="file" accept="image/*">
-        <select id="r_type">
-          <option value="lost">Lost</option>
-          <option value="found">Found</option>
-          <option value="claimed">Claimed</option>
-        </select>
-        <button class="primary-btn" type="submit">Save</button>
+        <div class="form-group">
+          <label for="r_title">Item Title *</label>
+          <input id="r_title" type="text" placeholder="e.g., Blue Nike Backpack" required>
+        </div>
+        <div class="form-group">
+          <label for="r_location">Location</label>
+          <input id="r_location" type="text" placeholder="e.g., Library 2nd Floor">
+        </div>
+        <div class="form-group">
+          <label for="r_desc">Description</label>
+          <textarea id="r_desc" rows="4" placeholder="Add details like color, brand, features..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="r_image">Upload Photo</label>
+          <input id="r_image" type="file" accept="image/*">
+          <img id="imagePreview" class="image-preview" alt="Preview">
+        </div>
+        <div class="form-group">
+          <label for="r_type">Item Status *</label>
+          <select id="r_type">
+            <option value="lost">Lost Item</option>
+            <option value="found">Found Item</option>
+          </select>
+        </div>
+        <button class="primary-btn" type="submit">📤 Submit Report</button>
       </form>
     </section>
 
     <!-- SEARCH -->
     <section id="search" class="panel">
-      <h2>🔍 Search Lost &amp; Found Items</h2>
-      <p class="muted">Find what you're looking for across campus</p>
-      <div class="search-bar">
-        <span class="search-icon">🔍</span>
-        <input id="s_query" placeholder="Search by title or description...">
-        <select id="s_filter">
-          <option value="all">All</option>
-          <option value="lost">Lost</option>
-          <option value="found">Found</option>
-          <option value="claimed">Claimed</option>
-        </select>
-        <button id="toggleFilters" class="filter-btn">Advanced Filters ▾</button>
-      </div>
-      <div id="advancedFilters" class="hidden">
-        <input id="filterLocation" placeholder="Location">
-        <input id="filterDate" type="date">
+      <h2 style="margin-bottom:20px">🔍 Search Lost & Found Items</h2>
+      <div class="search-container">
+        <div class="search-bar">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input id="s_query" placeholder="Search by title, description, or location...">
+          </div>
+          <select id="s_filter">
+            <option value="all">All Items</option>
+            <option value="lost">Lost Only</option>
+            <option value="found">Found Only</option>
+            <option value="claimed">Claimed</option>
+          </select>
+          <button id="toggleFilters" class="filter-btn">Advanced ▾</button>
+        </div>
+        <div id="advancedFilters" class="advanced-filters hidden">
+          <input id="filterLocation" placeholder="Filter by location">
+          <input id="filterDate" type="date">
+        </div>
       </div>
       <div id="searchResults" class="cards-grid"></div>
-      <div id="noResults" class="empty hidden">No matches.</div>
+      <div id="noResults" class="empty hidden">No matching items found. Try adjusting your search.</div>
+    </section>
+
+    <!-- ITEM DETAIL VIEW -->
+    <section id="itemDetail" class="panel">
+      <button id="backToSearch" class="back-btn">← Back to Search</button>
+      <div id="detailContent" class="detail-container"></div>
     </section>
 
     <!-- NOTIFICATIONS -->
     <section id="notifications" class="panel">
-      <h2>🔔 Notifications</h2>
-      <div id="alertsList"></div>
+      <h2 style="margin-bottom:20px">🔔 Notifications & Alerts</h2>
+      <div id="alertsList">
+        <div class="alert-item">
+          <strong>🎉 Welcome to FindTrack!</strong>
+          <p>You'll receive notifications here when there are updates on your items.</p>
+        </div>
+        <div class="alert-item">
+          <strong>💡 Pro Tip</strong>
+          <p>Enable browser notifications to get instant alerts!</p>
+        </div>
+      </div>
     </section>
 
     <!-- PROFILE -->
     <section id="profile" class="panel">
-      <h2>👤 Profile</h2>
+      <h2 style="margin-bottom:20px">👤 My Profile</h2>
       <div class="profile-container">
         <div class="profile-photo">
-          <img id="pf_avatar" alt="Profile">
+          <img id="pf_avatar" src="https://api.dicebear.com/8.x/avataaars/svg?seed=default" alt="Profile">
           <input id="pf_avatar_file" type="file" hidden accept="image/*">
-          <button id="uploadBtn" class="primary-btn">Upload</button>
-          <button id="randomAvatar" class="secondary-btn">Random Avatar</button>
+          <button id="uploadBtn" class="primary-btn">📸 Upload Photo</button>
+          <button id="randomAvatar" class="secondary-btn">🎲 Random Avatar</button>
         </div>
         <div class="profile-fields">
-          <input id="pf_name" placeholder="Full name">
-          <input id="pf_email" placeholder="Email">
-          <input id="pf_contact" placeholder="Contact">
-          <button id="saveProfile" class="primary-btn">Save</button>
+          <div class="form-group">
+            <label for="pf_name">Full Name</label>
+            <input id="pf_name" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="pf_email">Email</label>
+            <input id="pf_email" type="email" placeholder="your.email@example.com">
+          </div>
+          <div class="form-group">
+            <label for="pf_contact">Contact Number</label>
+            <input id="pf_contact" placeholder="+1 (555) 123-4567">
+          </div>
+          <button id="saveProfile" class="primary-btn">💾 Save Profile</button>
         </div>
       </div>
     </section>
 
-    <!-- MINI PAGES -->
-    <section id="pinned" class="mini-panel hidden">
-      <h2>📌 Pinned Items</h2>
+    <!-- MINI PANELS -->
+    <section id="pinned" class="panel">
+      <h2 style="margin-bottom:20px">📌 Pinned Items</h2>
+      <p class="muted">Quick access to items you've pinned</p>
       <div id="pinnedList" class="cards-grid"></div>
-      <div id="pinnedEmpty" class="empty hidden">No pinned items yet.</div>
+      <div id="pinnedEmpty" class="empty">No pinned items yet. Pin items from search!</div>
     </section>
 
-    <section id="tips" class="mini-panel hidden">
-      <h2>📚 Lost Item Recovery Guide</h2>
+    <section id="tips" class="panel">
+      <h2 style="margin-bottom:20px">📚 Lost Item Recovery Guide</h2>
+      <p class="muted">Helpful tips to increase your chances of finding lost items</p>
       <div class="tips-grid">
-        <div class="tip-card">🏃 Retrace Steps – Go back through your route.</div>
-        <div class="tip-card">🏢 Campus Offices – Library, Cafeteria, Security.</div>
-        <div class="tip-card">📱 Digital Tools – Forums, FindTrack, Social Media.</div>
-        <div class="tip-card">🕒 Act Quickly – Search within 2 hours.</div>
+        <div class="tip-card">🏃 <strong>Retrace Your Steps</strong><br>Go back through your route within the last few hours.</div>
+        <div class="tip-card">🏢 <strong>Check Key Locations</strong><br>Visit Library, Cafeteria, Security Office, and Classrooms.</div>
+        <div class="tip-card">📱 <strong>Use Digital Tools</strong><br>Post on forums, use FindTrack, check social media groups.</div>
+        <div class="tip-card">🕒 <strong>Act Quickly</strong><br>Report and search within 2 hours for best results.</div>
       </div>
     </section>
 
-    <section id="packaging" class="mini-panel hidden">
-      <h2>📦 Packaging Tips</h2>
+    <section id="packaging" class="panel">
+      <h2 style="margin-bottom:20px">📦 Packaging & Handling Tips</h2>
+      <p class="muted">Best practices for securing found items</p>
       <div class="tips-grid">
-        <div class="tip-card">🧴 Protect Fragile Goods – Bubble wrap for safety.</div>
-        <div class="tip-card">🎁 Seal Securely – Prevent items from falling out.</div>
-        <div class="tip-card">📏 Label Clearly – Add name & contact info.</div>
-        <div class="tip-card">🕒 Update Regularly – Refresh reports after recovery.</div>
+        <div class="tip-card">🧴 <strong>Protect Fragile Items</strong><br>Use bubble wrap for delicate objects.</div>
+        <div class="tip-card">🎁 <strong>Seal Securely</strong><br>Ensure items are properly contained.</div>
+        <div class="tip-card">📏 <strong>Label Clearly</strong><br>Add your name, contact info, and date found.</div>
+        <div class="tip-card">🕒 <strong>Update Status</strong><br>Mark items as claimed once recovered.</div>
       </div>
     </section>
 
-    <section id="myitems" class="mini-panel hidden">
-      <h2>📦 My Items</h2>
+    <section id="myitems" class="panel">
+      <h2 style="margin-bottom:20px">📦 My Items</h2>
+      <p class="muted">All items you've reported</p>
       <div id="myItemsList" class="cards-grid"></div>
-      <div id="myItemsEmpty" class="empty hidden">No reports yet.</div>
+      <div id="myItemsEmpty" class="empty">You haven't reported any items yet.</div>
     </section>
 
-    <section id="about" class="mini-panel hidden">
-      <h2>ℹ️ About / Help</h2>
-      <p>FindTrack helps you manage and locate lost items around campus efficiently.</p>
-      <ul>
-        <li>Use the Report tab to submit new cases.</li>
-        <li>Pin items for quick access.</li>
-        <li>Search and apply filters to locate reports easily.</li>
+    <section id="about" class="panel">
+      <h2 style="margin-bottom:20px">ℹ️ About FindTrack</h2>
+      <p><strong>FindTrack</strong> is a comprehensive lost and found management system.</p>
+      <h3 style="margin-top:20px">📖 How to Use</h3>
+      <ul style="line-height:1.8">
+        <li><strong>Report:</strong> Submit details about lost or found items with photos</li>
+        <li><strong>Search:</strong> Browse all reported items with advanced filters</li>
+        <li><strong>Claim:</strong> Mark items as found when recovered</li>
       </ul>
-      <p>Email: support@findtrack.app</p>
-    </section>
-
-    <section id="categories" class="mini-panel hidden">
-      <h2>🏷️ Categories</h2>
-      <div class="cards-grid">
-        <div class="card-item"><div class="card-title">🎒 Bags</div><div class="card-desc">Backpacks, wallets</div></div>
-        <div class="card-item"><div class="card-title">📱 Electronics</div><div class="card-desc">Phones, chargers</div></div>
-        <div class="card-item"><div class="card-title">📚 Stationery</div><div class="card-desc">Books, IDs, pens</div></div>
-        <div class="card-item"><div class="card-title">👕 Clothing</div><div class="card-desc">Uniforms, jackets</div></div>
+      <div class="tip-banner" style="margin-top:20px">
+        💡 Pro Tip: Enable notifications to get instant alerts!
       </div>
     </section>
 
-    <section id="analytics" class="mini-panel hidden">
-      <h2>📊 Analytics</h2>
-      <canvas id="chartCanvas" width="320" height="160"
-        style="background:white;border-radius:8px;box-shadow:var(--shadow)"></canvas>
-      <p class="muted small">Sample item distribution chart</p>
+    <section id="categories" class="panel">
+      <h2 style="margin-bottom:20px">🏷️ Item Categories</h2>
+      <p class="muted">Browse items by category</p>
+      <div class="cards-grid">
+        <div class="card-item">
+          <div class="card-media" style="font-size:48px">🎒</div>
+          <div class="card-title">Bags & Backpacks</div>
+          <div class="card-desc">Backpacks, purses, wallets, luggage</div>
+        </div>
+        <div class="card-item">
+          <div class="card-media" style="font-size:48px">📱</div>
+          <div class="card-title">Electronics</div>
+          <div class="card-desc">Phones, laptops, tablets, chargers</div>
+        </div>
+        <div class="card-item">
+          <div class="card-media" style="font-size:48px">📚</div>
+          <div class="card-title">Books & Stationery</div>
+          <div class="card-desc">Textbooks, notebooks, IDs, pens</div>
+        </div>
+        <div class="card-item">
+          <div class="card-media" style="font-size:48px">👕</div>
+          <div class="card-title">Clothing & Accessories</div>
+          <div class="card-desc">Jackets, uniforms, glasses, watches</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="analytics" class="panel">
+      <h2 style="margin-bottom:20px">📊 Analytics Dashboard</h2>
+      <p class="muted">Visual overview of reported items</p>
+      <div style="background:white;padding:20px;border-radius:12px;box-shadow:var(--shadow);margin-top:20px">
+        <canvas id="chartCanvas" width="400" height="200" style="max-width:100%;display:block;margin:0 auto"></canvas>
+      </div>
+      <div style="text-align:center;margin-top:16px">
+        <p class="muted">Item distribution by status</p>
+      </div>
     </section>
   </main>
+
+  <!-- Guest Mode Modal -->
+  <div id="guestModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-icon">🔒</div>
+      <h2>Login Required</h2>
+      <p>Please login or sign up to unlock the full potential of the app!</p>
+      <div class="modal-buttons">
+        <a href="login.html" class="modal-btn primary">🔐 Login</a>
+        <a href="signup.html" class="modal-btn secondary">📝 Sign Up</a>
+      </div>
+      <button id="closeModal" class="modal-close">Maybe later</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
